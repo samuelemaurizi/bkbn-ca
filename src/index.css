@@ -1,3 +1,18 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --clr-gray80: hsl(0, 0%, 20%);
+  --clr-gray60: hsl(0, 0%, 40%);
+  --clr-gray40: hsl(0, 0%, 60%);
+  --clr-gray30: hsl(0, 0%, 70%);
+  --clr-gray20: hsl(0, 0%, 80%);
+  --clr-gray10: hsl(0, 0%, 90%);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +20,4 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
