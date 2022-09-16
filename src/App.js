@@ -25,7 +25,7 @@ function App() {
           outline: '1px solid pink',
         }}
       >
-        <Typography variant='h4'>ToDo App</Typography>
+        <Typography variant='h4'>keep track of your todos</Typography>
         <FormSubmit />
         <TodoList />
       </Container>

@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+// CONTEXT
+import TodoContext from '../context/todo/todoContext';
 
 // MUI
 import Card from '@mui/material/Card';
@@ -9,11 +12,14 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Divider from '@mui/material/Divider';
 
-const TodoTask = () => {
+const TodoTask = ({ task }) => {
+  const todoContext = useContext(TodoContext);
+  const { deleteTask } = todoContext;
+
   return (
     <Card>
       <CardContent>
-        <Typography>Lorem ipsum dolor sit amet consectetur,</Typography>
+        <Typography variant='body1'>{task.data}</Typography>
       </CardContent>
       <Divider variant='middle' />
       <CardActions
@@ -22,8 +28,12 @@ const TodoTask = () => {
           gap: '0.75rem',
         }}
       >
-        <Typography>time goes here</Typography>
-        <IconButton color='error'>
+        <Typography variant='body2'>{task.time}</Typography>
+        <IconButton
+          color='error'
+          arial-label='Delete'
+          onClick={() => deleteTask(task.id)}
+        >
           <DeleteIcon />
         </IconButton>
       </CardActions>
