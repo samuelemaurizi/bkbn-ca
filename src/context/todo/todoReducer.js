@@ -15,11 +15,7 @@ const todoReducer = (state, action) => {
     case ADD_TASK:
       return {
         ...state,
-        todos: [
-          ...state.todos,
-          payload,
-          // { id: uuidv4(), data: payload.data, time: payload.time },
-        ],
+        todos: [...state.todos, payload],
       };
     case SAVE_TO_LOCAL:
       return {
@@ -29,7 +25,7 @@ const todoReducer = (state, action) => {
     case GET_FROM_LOCAL:
       return {
         ...state,
-        todos: payload,
+        todos: payload || [],
       };
     case IS_TASK_PRESENT:
       return {

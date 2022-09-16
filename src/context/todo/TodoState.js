@@ -15,7 +15,7 @@ const TodoState = (props) => {
   const initialState = {
     todos: [],
     isTodosOnLocal: false,
-    isTaskEqual: true,
+    isTaskEqual: false,
   };
 
   const [state, dispatch] = useReducer(TodoReducer, initialState);
@@ -73,20 +73,37 @@ const TodoState = (props) => {
 
   const isTaskPresent = (task) => {
     if (
-      state.todos.some((el) => el.data.toLowerCase() !== task.toLowerCase())
+      state.todos.some(
+        (el) => el.data.toLowerCase() === task.toLowerCase().trim()
+      )
     ) {
-      console.log('>>>>>>>>> is not present <<<<<<<<<');
+      dispatch({
+        type: IS_TASK_PRESENT,
+        payload: true,
+      });
+      return;
+    } else {
       dispatch({
         type: IS_TASK_PRESENT,
         payload: false,
       });
-      return;
     }
+  };
 
-    return console.log('>>>>>>> is present <<<<<<<');
+  const deleteFromLocal = (id) => {
+    const localStorageItem = JSON.parse(localStorage.getItem('todoList'));
+    const filterdStorage = localStorageItem.filter((el) => el.id !== id);
+
+    try {
+      localStorage.setItem('todoList', JSON.stringify(filterdStorage));
+    } catch (error) {
+      // handle error
+      console.log('<<<<<< local error >>>>>>', error);
+    }
   };
 
   const deleteTask = (id) => {
+    deleteFromLocal(id);
     dispatch({
       type: DELETE_TASK,
       payload: id,
@@ -99,7 +116,6 @@ const TodoState = (props) => {
         todos: state.todos,
         isTaskEqual: state.isTaskEqual,
         addTask,
-        saveToLocal,
         getFromLocal,
         deleteTask,
         isTaskPresent,

@@ -9,6 +9,7 @@ import TodoTask from './TodoTask';
 // MUI
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 const TodoList = () => {
   const todoContext = useContext(TodoContext);
@@ -24,6 +25,8 @@ const TodoList = () => {
   useEffect(() => {
     if (todos.length > 0) {
       setTasks(todos);
+    } else {
+      setTasks([]);
     }
   }, [todos]);
 
@@ -36,7 +39,12 @@ const TodoList = () => {
           ))}
         </Stack>
       ) : (
-        <p>no todos founded</p>
+        <Typography
+          variant='body1'
+          sx={{ color: 'var(--clr-gray40)', textAlign: 'center' }}
+        >
+          your list is empty
+        </Typography>
       )}
     </Box>
   );

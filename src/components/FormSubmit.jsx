@@ -11,83 +11,51 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+const inputStyle = {
+  '& label.Mui-focused': {
+    color: 'var(--clr-success)',
+  },
+  '& label.Mui-error': {
+    color: 'var(--clr-error)',
+  },
+  '& .MuiOutlinedInput-root': {
+    '&.Mui-focused fieldset': {
+      borderColor: 'var(--clr-success)',
+    },
+  },
+  '& .MuiOutlinedInput-root.Mui-error': {
+    '&.Mui-focused fieldset': {
+      borderColor: 'var(--clr-error)',
+    },
+  },
+};
+
 const FormSubmit = () => {
   const todoContext = useContext(TodoContext);
   const { isTaskPresent, addTask, isTaskEqual } = todoContext;
 
   const [data, setData] = useState('');
-  // const [results, setResults] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
   const [disableBtn, setDisableBtn] = useState(true);
 
-  const debouncedSearchTask = useDebounce(data, 1000);
+  const debouncedSearchTask = useDebounce(data, 250);
 
   useEffect(
     () => {
       if (debouncedSearchTask) {
-        setIsSearching(true);
         isTaskPresent(debouncedSearchTask);
       }
-      // else {
-      //   setResults([]);
-      // }
     },
     // eslint-disable-next-line
     [debouncedSearchTask]
   );
 
   useEffect(() => {
-    console.log('<<<< is equal >>>>', isTaskEqual);
-    // console.log('<<<< data >>>>', data !== '');
-    if (!isTaskEqual) {
-      setDisableBtn(false);
-    }
+    const areTheSame = (isTaskEqual || data === '') ?? false;
+    setDisableBtn(areTheSame);
   }, [isTaskEqual, data]);
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => setData(debouncingTask), 2000);
-  //   return () => clearTimeout(timer);
-  // }, [debouncingTask]);
-
-  // useEffect(() => {
-  //   console.log('data', data);
-  //   if (data !== '') {
-  //     isTaskPresent(data);
-  //   } else {
-  //     // clear result
-  //   }
-
-  //   // eslint-disable-next-line
-  // }, [data]);
-
-  // const taskFilter = (query) => {
-  //   console.log(query);
-  //   if (!query) return;
-  //   setTimeout(() => {
-  //     setDebouncingTask(
-  //       todos.some((el) => el.data.toLowerCase() === query.toLowerCase())
-  //     );
-  //   }, 2000);
-  // };
-  // console.log('deb', debouncingTask);
-
-  // useEffect(() => {
-  //   if (data !== '') {
-  //     verify(data);
-  //   }
-  // }, [data]);
-
-  // const verify = useCallback(
-  //   debounce((name) => {
-  //     console.log(name);
-  //   }, 200),
-  //   []
-  // );
 
   const handleChange = (e) => {
     setData(e.target.value);
-    // setDebouncingTask(e.target.value);
-    // taskFilter(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -102,11 +70,17 @@ const FormSubmit = () => {
         width: '100%',
         marginTop: '2rem',
         '& form': {
+          position: 'relative',
           display: 'flex',
           justifyContent: 'space-between',
           gap: '1rem',
           '& > div': {
             flexGrow: 1,
+            '& > p': {
+              position: 'absolute',
+              top: '100%',
+              left: '0px',
+            },
           },
         },
       }}
@@ -116,10 +90,17 @@ const FormSubmit = () => {
           label='Add new todo'
           onChange={handleChange}
           value={data}
-          // error
-          // helperText='already exist'
+          error={isTaskEqual}
+          helperText={isTaskEqual && 'Todo already exist'}
+          sx={inputStyle}
         />
-        <Button type='submit' variant='contained' disabled={disableBtn}>
+        <Button
+          type='submit'
+          variant='contained'
+          color='success'
+          disabled={disableBtn}
+          sx={{ maxHeight: '56px' }}
+        >
           Add
         </Button>
       </form>

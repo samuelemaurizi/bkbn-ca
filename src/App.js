@@ -16,13 +16,15 @@ function App() {
       <Container
         maxWidth='sm'
         sx={{
-          minHeight: '100vh',
+          minHeight: 'calc(100vh - var(--m2) * 2)',
+          marginBlock: 'var(--m2)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           paddingTop: '3rem',
-
-          outline: '1px solid pink',
+          boxShadow: 5,
+          borderRadius: '10px',
+          overflow: 'hidden',
         }}
       >
         <Typography variant='h4'>keep track of your todos</Typography>
