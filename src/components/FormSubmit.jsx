@@ -13,14 +13,14 @@ import Button from '@mui/material/Button';
 
 const inputStyle = {
   '& label.Mui-focused': {
-    color: 'var(--clr-success)',
+    color: 'var(--clr-main)',
   },
   '& label.Mui-error': {
     color: 'var(--clr-error)',
   },
   '& .MuiOutlinedInput-root': {
     '&.Mui-focused fieldset': {
-      borderColor: 'var(--clr-success)',
+      borderColor: 'var(--clr-main)',
     },
   },
   '& .MuiOutlinedInput-root.Mui-error': {
@@ -68,19 +68,30 @@ const FormSubmit = () => {
     <Box
       sx={{
         width: '100%',
-        marginTop: '2rem',
+        marginTop: '7rem',
         '& form': {
           position: 'relative',
           display: 'flex',
           justifyContent: 'space-between',
           gap: '1rem',
+          flexWrap: 'wrap',
+          paddingBlock: '24px',
+          paddingInline: '14px',
+          background: 'var(--clr-white)',
+          borderRadius: '5px',
+          boxShadow:
+            'rgb(0 0 0 / 20%) 0px 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px',
           '& > div': {
-            flexGrow: 1,
+            flexGrow: 20,
             '& > p': {
               position: 'absolute',
               top: '100%',
               left: '0px',
             },
+          },
+          '& > button': {
+            maxHeight: '56px',
+            flexGrow: 1,
           },
         },
       }}
@@ -97,9 +108,9 @@ const FormSubmit = () => {
         <Button
           type='submit'
           variant='contained'
-          color='success'
+          color='secondary'
           disabled={disableBtn}
-          sx={{ maxHeight: '56px' }}
+          // sx={{ maxHeight: '56px', flexGrow: 1 }}
         >
           Add
         </Button>
