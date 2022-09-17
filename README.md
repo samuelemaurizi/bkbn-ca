@@ -10,7 +10,7 @@ The application consists of an input field for adding a new task, once the butto
 
 In order to maintain the persistence of the tasks on page reload or next time you access the application, they are saved in localStorage.
 
-If you are going to add a task that already exists the input field will throw an error message.
+If you are about to add a task that already exists the input field will throw an error message.
 
 The application makes use of a few packages such as: react-material-ui for UI elements, framer-motion for animate UI elements, uuid that create a unique identifier for each task.
 
