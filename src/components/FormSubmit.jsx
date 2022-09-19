@@ -41,9 +41,14 @@ const FormSubmit = () => {
 
   useEffect(
     () => {
-      if (debouncedSearchTask) {
-        isTaskPresent(debouncedSearchTask);
-      }
+      // console.log('debouncer 1', debouncedSearchTask);
+      isTaskPresent(debouncedSearchTask);
+
+      // if (debouncedSearchTask) {
+      //   console.log('debouncer 2', debouncedSearchTask);
+
+      //   isTaskPresent(debouncedSearchTask);
+      // }
     },
     // eslint-disable-next-line
     [debouncedSearchTask]
@@ -110,7 +115,6 @@ const FormSubmit = () => {
           variant='contained'
           color='secondary'
           disabled={disableBtn}
-          // sx={{ maxHeight: '56px', flexGrow: 1 }}
         >
           Add
         </Button>

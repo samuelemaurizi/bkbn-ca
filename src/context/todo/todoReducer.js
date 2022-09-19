@@ -6,6 +6,7 @@ import {
   SAVE_TO_LOCAL,
   GET_FROM_LOCAL,
   IS_TASK_PRESENT,
+  EDIT_TASK,
 } from '../types';
 
 const todoReducer = (state, action) => {
@@ -31,6 +32,13 @@ const todoReducer = (state, action) => {
       return {
         ...state,
         isTaskEqual: payload,
+      };
+    case EDIT_TASK:
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === payload.id ? payload : todo
+        ),
       };
     case DELETE_TASK:
       return {

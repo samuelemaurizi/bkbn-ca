@@ -9,6 +9,7 @@ import {
   SAVE_TO_LOCAL,
   GET_FROM_LOCAL,
   IS_TASK_PRESENT,
+  EDIT_TASK,
 } from '../types';
 
 const TodoState = (props) => {
@@ -90,6 +91,32 @@ const TodoState = (props) => {
     }
   };
 
+  const editTask = (editedTask) => {
+    const updatedTask = {
+      id: editedTask.id,
+      data: editedTask.data,
+      time: Intl.DateTimeFormat(navigator.language, {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+      }).format(new Date()),
+    };
+
+    const filterdTodos = state.todos.filter((el) => {
+      return el.id !== editedTask.id;
+    });
+
+    dispatch({
+      type: EDIT_TASK,
+      payload: updatedTask,
+    });
+
+    saveToLocal([...filterdTodos, updatedTask]);
+  };
+
   const deleteFromLocal = (id) => {
     const localStorageItem = JSON.parse(localStorage.getItem('todoList'));
     const filterdStorage = localStorageItem.filter((el) => el.id !== id);
@@ -119,6 +146,7 @@ const TodoState = (props) => {
         getFromLocal,
         deleteTask,
         isTaskPresent,
+        editTask,
       }}
     >
       {props.children}
